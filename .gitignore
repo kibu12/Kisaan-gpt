@@ -55,13 +55,6 @@ htmlcov/
 # mypy
 .mypy_cache/
 
-# ML model files (uncomment if models should not be tracked)
-# models/*.pkl
-
-# Data files (uncomment if data should not be tracked)
-# data/raw/
-# data/processed/
-
 # Logs
 *.log
 
