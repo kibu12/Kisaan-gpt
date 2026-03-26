@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import numpy as np
-import tempfile, os, json
+import tempfile, os, json, subprocess
 from dotenv import load_dotenv
 
 # Load env variables (GROQ_API_KEY, SUPABASE_URL, etc.)
@@ -21,6 +21,32 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Auto-Training Logic ──────────────────────────────────────────────────────
+def ensure_models_trained():
+    """Checks if the model file exists; if not, runs the training script."""
+    # Adjust 'crop_model.pkl' to the actual name your training script outputs
+    model_path = os.path.join("models", "crop_model.pkl") 
+    train_script = os.path.join("models", "train_crop_model.py")
+
+    if not os.path.exists(model_path):
+        if os.path.exists(train_script):
+            with st.status("🏗️ First-time setup: Training AI models...", expanded=True) as status:
+                st.write("Initializing RandomForest Regressor...")
+                try:
+                    # Run the training script
+                    result = subprocess.run(["python", train_script], capture_output=True, text=True)
+                    if result.returncode == 0:
+                        status.update(label="✅ Models trained successfully!", state="complete", expanded=False)
+                    else:
+                        st.error(f"Training script failed: {result.stderr}")
+                except Exception as e:
+                    st.error(f"Error triggering training: {e}")
+        else:
+            st.error("Model files and training script are both missing!")
+
+# Trigger the check immediately
+ensure_models_trained() 
+
 # Inject Google Search Console verification meta tag using Streamlit components
 import streamlit.components.v1 as components
 components.html(
@@ -30,6 +56,7 @@ components.html(
     height=0,
     width=0,
 )
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # GLOBAL CSS — Apple-esque minimalist design system
