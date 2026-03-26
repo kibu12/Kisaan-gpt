@@ -1,0 +1,17 @@
+ICAR FERTILIZER RECOMMENDATIONS
+
+RICE: N 120, P 60, K 60 kg/ha. Split N: 50% basal, 25% tillering, 25% panicle. Use DAP for P.
+WHEAT: N 120, P 60, K 40 kg/ha. Split N: 50% basal, 25% CRI, 25% flag leaf.
+MAIZE: N 150, P 75, K 60 kg/ha. Split N in 3: basal, knee-high, tasseling.
+GROUNDNUT: N 25, P 50, K 75 kg/ha. Inoculate with Rhizobium. Gypsum 500 kg/ha at pegging.
+COTTON: N 120, P 60, K 60 kg/ha. Split N in 4. Apply borax 1 kg/ha at bud stage.
+CHICKPEA: N 20, P 40, K 20 kg/ha. Inoculate with Mesorhizobium.
+SUGARCANE: N 275, P 62, K 112 kg/ha per year.
+SUNFLOWER: N 90, P 60, K 60 kg/ha. Boron foliar 0.2% at bud stage.
+
+RULES:
+- Always apply P and K as basal dose before sowing.
+- Split nitrogen to reduce leaching. Never apply all N as basal.
+- Neem-coated urea improves nitrogen efficiency by 10-15%.
+- Combine organic and inorganic fertilizers for best results.
+- 4R: Right source, Right rate, Right time, Right place.

@@ -1,0 +1,28 @@
+SOIL HEALTH CRITICAL THRESHOLDS — ICAR
+
+pH:
+Below 5.5: CRITICAL — Aluminium toxicity. Apply lime 2-3 tonnes/ha immediately.
+5.5 to 6.0: WARNING — Apply lime 1 tonne/ha this season.
+6.0 to 7.5: OPTIMAL — Most crops perform well.
+7.5 to 8.5: ALKALINE — Apply gypsum 2 tonnes/ha.
+Above 8.5: CRITICAL — Soil reclamation required before planting.
+
+Organic Carbon (OC):
+Below 0.5%: CRITICAL — Apply FYM 10 tonnes/ha every season.
+0.5 to 0.75%: LOW — Apply FYM 5 tonnes/ha.
+Above 0.75%: ADEQUATE.
+
+EC (Electrical Conductivity):
+Above 4 dS/m: CRITICAL — Salt damage. Leach and apply gypsum.
+2 to 4 dS/m: WARNING — Use salt-tolerant varieties only.
+
+Nitrogen (N) kg/ha:
+Below 280: LOW. 280-560: MEDIUM. Above 560: HIGH.
+
+Phosphorus (P) kg/ha:
+Below 10: LOW. 10-25: MEDIUM. Above 25: HIGH.
+
+Potassium (K) kg/ha:
+Below 108: LOW. 108-280: MEDIUM. Above 280: HIGH.
+
+NOTE: pH 5.5 is a cliff not a slope. Below this point aluminium becomes toxic to crop roots.

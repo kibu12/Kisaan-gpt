@@ -1,0 +1,230 @@
+{
+  "feature_names": [
+    "N",
+    "P",
+    "K",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "crop_classes": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "best_model": "Random Forest",
+  "test_accuracy": 99.55,
+  "cv_mean": 99.45,
+  "cv_std": 0.23,
+  "model_comparison": {
+    "Random Forest": {
+      "accuracy": 99.55,
+      "f1_macro": 99.55
+    },
+    "Gradient Boosting": {
+      "accuracy": 98.86,
+      "f1_macro": 98.87
+    },
+    "SVM (RBF)": {
+      "accuracy": 98.41,
+      "f1_macro": 98.4
+    },
+    "KNN (k=5)": {
+      "accuracy": 97.95,
+      "f1_macro": 97.93
+    },
+    "Naive Bayes": {
+      "accuracy": 99.55,
+      "f1_macro": 99.54
+    }
+  },
+  "regional_mapping": {
+    "Coimbatore": {
+      "agro_climatic_zone": "Western Zone",
+      "soil_types": [
+        "Red Loam",
+        "Black Soil"
+      ],
+      "crop_classes": [
+        "banana",
+        "coconut",
+        "cotton",
+        "maize",
+        "mango",
+        "mungbean",
+        "papaya",
+        "pomegranate",
+        "pigeonpeas",
+        "watermelon"
+      ],
+      "major_excluded": [
+        "apple",
+        "coffee",
+        "jute",
+        "kidneybeans"
+      ]
+    },
+    "Erode": {
+      "agro_climatic_zone": "Western Zone",
+      "soil_types": [
+        "Red Loam",
+        "Alluvial"
+      ],
+      "crop_classes": [
+        "banana",
+        "blackgram",
+        "coconut",
+        "maize",
+        "mango",
+        "mungbean",
+        "papaya",
+        "rice",
+        "watermelon"
+      ],
+      "major_excluded": [
+        "apple",
+        "coffee",
+        "grapes",
+        "mothbeans"
+      ]
+    },
+    "Salem": {
+      "agro_climatic_zone": "North Western Zone",
+      "soil_types": [
+        "Red Loam",
+        "Laterite"
+      ],
+      "crop_classes": [
+        "banana",
+        "blackgram",
+        "chickpea",
+        "coffee",
+        "cotton",
+        "mango",
+        "orange",
+        "papaya",
+        "pigeonpeas",
+        "pomegranate",
+        "rice"
+      ],
+      "major_excluded": [
+        "apple",
+        "jute",
+        "muskmelon",
+        "watermelon"
+      ]
+    },
+    "Tiruppur": {
+      "agro_climatic_zone": "Western Zone",
+      "soil_types": [
+        "Black Soil",
+        "Red Sandy Loam"
+      ],
+      "crop_classes": [
+        "banana",
+        "coconut",
+        "cotton",
+        "maize",
+        "mungbean",
+        "muskmelon",
+        "pomegranate",
+        "watermelon"
+      ],
+      "major_excluded": [
+        "apple",
+        "coffee",
+        "jute",
+        "rice"
+      ]
+    },
+    "Nilgiris": {
+      "agro_climatic_zone": "High Rainfall/Hilly Zone",
+      "soil_types": [
+        "Laterite",
+        "Forest Soil"
+      ],
+      "crop_classes": [
+        "apple",
+        "coffee",
+        "orange",
+        "kidneybeans"
+      ],
+      "major_excluded": [
+        "coconut",
+        "cotton",
+        "jute",
+        "rice",
+        "watermelon",
+        "mango",
+        "papaya"
+      ]
+    }
+  },
+  "seasonal_mapping": {
+    "Kharif": [
+      "rice",
+      "maize",
+      "cotton",
+      "pigeonpeas",
+      "mungbean",
+      "banana",
+      "coconut",
+      "jute"
+    ],
+    "Rabi": [
+      "chickpea",
+      "blackgram",
+      "lentil",
+      "kidneybeans",
+      "grapes",
+      "pomegranate",
+      "orange",
+      "mango"
+    ],
+    "Summer": [
+      "watermelon",
+      "muskmelon",
+      "mothbeans",
+      "mungbean",
+      "papaya",
+      "coconut",
+      "banana"
+    ],
+    "Nilgiris_Annual": [
+      "coffee",
+      "apple",
+      "orange",
+      "kidneybeans"
+    ]
+  },
+  "soil_thresholds": {
+    "ph_critical_low": 5.5,
+    "ph_warning_low": 6.0,
+    "ph_optimal_max": 7.5,
+    "ec_salinity_danger": 4.0,
+    "oc_critical_low": 0.5,
+    "n_low": 280,
+    "p_low": 10,
+    "k_low": 108
+  }
+}
