@@ -16,10 +16,29 @@ load_dotenv()
 # ── Page config (must be first) ──────────────────────────────────────────────
 st.set_page_config(
     page_title="KisaanGPT - Your AI Agriculture Assistant",
-    page_icon="🌾",
+    page_icon="assets/logo.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+import os
+import base64
+
+logo_path = os.path.join(os.path.dirname(__file__), "assets", "logo.png")
+if os.path.exists(logo_path):
+    with open(logo_path, "rb") as f:
+        img_b64 = base64.b64encode(f.read()).decode("utf-8")
+    
+    st.logo(
+        f"data:image/png;base64,{img_b64}",
+        size="large"
+    )
+    
+    # Update page config icon to use same base64 if it fails otherwise
+    # st.set_page_config is above this, so relying on filepath there is usually fine.
+
+
+
 
 # ── Auto-Training Logic ──────────────────────────────────────────────────────
 def ensure_models_trained():
