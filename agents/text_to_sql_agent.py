@@ -6,10 +6,10 @@ natural language queries to SQL using Groq.
 import os
 import sqlite3
 import pandas as pd
-from dotenv import load_dotenv
 import groq
+from .utils import get_api_key
 
-load_dotenv()
+# load_dotenv() is now handled in utils.py
 
 DB_PATH = "data/processed/agriculture.db"
 
@@ -54,7 +54,7 @@ def get_schema() -> str:
 
 
 def nl_to_sql(question: str) -> str:
-    client = groq.Groq(api_key=os.getenv("GROQ_API_KEY"))
+    client = groq.Groq(api_key=get_api_key("GROQ_API_KEY"))
     schema = get_schema()
 
     system = """You are an expert SQL generator for agriculture databases.
@@ -92,7 +92,7 @@ def execute_query(sql: str) -> pd.DataFrame:
 
 
 def explain_result(question: str, sql: str, result_df: pd.DataFrame) -> str:
-    client = groq.Groq(api_key=os.getenv("GROQ_API_KEY"))
+    client = groq.Groq(api_key=get_api_key("GROQ_API_KEY"))
     result_str = result_df.to_string(index=False) if not result_df.empty else "No results found."
 
     prompt = f"""A farmer asked: "{question}"

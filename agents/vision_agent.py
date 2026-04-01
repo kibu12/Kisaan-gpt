@@ -1,14 +1,9 @@
 """agents/vision_agent.py — Uses Groq LLaMA 3.2 Vision for Pathology"""
-import os
-import base64
-from dotenv import load_dotenv
-from groq import Groq
-
-load_dotenv()
+from .utils import get_api_key
 
 class VisionAgent:
     def __init__(self):
-        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        self.client = Groq(api_key=get_api_key("GROQ_API_KEY"))
 
     def analyze_disease(self, image_bytes: bytes, user_prompt: str, language: str) -> str:
         base64_image = base64.b64encode(image_bytes).decode('utf-8')

@@ -1,9 +1,10 @@
 """agents/weather_agent.py"""
 import os, requests
+from .utils import get_api_key
 
 class WeatherAgent:
     def get_forecast(self, location: str) -> dict:
-        api_key = os.environ.get("OPENWEATHER_API_KEY", "")
+        api_key = get_api_key("OPENWEATHER_API_KEY")
         if not api_key:
             return self._fallback()
         try:

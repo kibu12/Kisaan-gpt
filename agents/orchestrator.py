@@ -3,9 +3,8 @@ agents/orchestrator.py
 Updated orchestrator with full intent routing:
 User Query -> Intent Understanding -> Tool Selection -> Execution -> Final Response
 """
-import os
-from dotenv import load_dotenv
 import groq
+from .utils import get_api_key
 
 from agents.soil_analyst_agent    import SoilAnalystAgent
 from agents.crop_predictor_agent  import CropPredictorAgent
@@ -16,7 +15,7 @@ from agents.synthesis_agent       import SynthesisAgent
 from agents.text_to_sql_agent     import TextToSQLAgent
 from agents.vision_agent          import VisionAgent
 
-load_dotenv()
+# load_dotenv() is now handled in utils.py
 
 def detect_intent(query: str) -> str:
     """
@@ -25,7 +24,7 @@ def detect_intent(query: str) -> str:
     - 'rag'  : knowledge/guideline questions
     - 'crop' : user provides soil parameters and wants crop recommendation
     """
-    client = groq.Groq(api_key=os.getenv("GROQ_API_KEY"))
+    client = groq.Groq(api_key=get_api_key("GROQ_API_KEY"))
 
     prompt = f"""Classify this agriculture query into exactly one category.
 
@@ -61,7 +60,7 @@ Reply with ONLY one word: sql, rag, or crop"""
 
 class OrchestratorAgent:
     def __init__(self):
-        self.client           = groq.Groq(api_key=os.getenv("GROQ_API_KEY"))
+        self.client           = groq.Groq(api_key=get_api_key("GROQ_API_KEY"))
         self.soil_agent       = SoilAnalystAgent()
         self.crop_agent       = CropPredictorAgent()
         self.rag_agent        = RAGRetrieverAgent()
