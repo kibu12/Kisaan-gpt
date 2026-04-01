@@ -1,4 +1,5 @@
-"""agents/vision_agent.py — Uses Groq LLaMA 3.2 Vision for Pathology"""
+import base64
+from groq import Groq
 from .utils import get_api_key
 
 class VisionAgent:
