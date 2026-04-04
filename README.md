@@ -1,132 +1,101 @@
 # KisaanGPT — Your AI Agriculture Assistant
 
-AI-powered crop advisory system for Tamil Nadu farmers. Combines machine learning,
-RAG (Supabase pgvector), multi-agent reasoning, voice AI, and a farm digital twin.
+KisaanGPT is a premium AI-powered crop advisory platform for Tamil Nadu farmers. It features an "Apple-esque" minimalist design, multi-agent reasoning, machine learning crop predictions, voice AI, and a persistent digital twin of your farm.
 
 ---
 
-## Quick Start
+## 🚀 Key Features
 
-### 1. Clone & install
-```bash
-git clone <your-repo>
-pip install -r requirements.txt
-```
-
-### 2. Configure environment
-```bash
-cp .env
-# Edit .env — fill in all 4 keys
-```
-
-### 3. Supabase one-time setup
-1. Create a free project at https://supabase.com
-2. Open **SQL Editor** and run the entire contents of `supabase_setup.sql`
-3. Copy your **Project URL** and **service_role key** from Settings → API into `.env`
-
-### 4. Download datasets
-| Dataset | Source | Save to |
-|---------|--------|---------|
-| Crop Recommendation (Atharva Ingle) | kaggle.com/datasets/atharvaingle/crop-recommendation-dataset | `data/raw/crop_recommendation.csv` |
-| Fertilizer Prediction | kaggle.com/datasets/gdabhishek/fertilizer-prediction | `data/raw/fertilizer_prediction.csv` |
-
-### 5. Train ML models
-```bash
-python models/train_crop_model.py
-```
-This trains and compares 5 models, selects the best (RandomForest ~99%), and saves:
-- `models/crop_model.pkl`
-- `models/fertilizer_model.pkl`
-- `models/model_metadata.json`
-
-### 6. Build RAG knowledge base
-```bash
-python rag/build_knowledge_base.py
-```
-This chunks 5 ICAR/TNAU documents, embeds them with `all-MiniLM-L6-v2`,
-and uploads to Supabase. Then go to Supabase SQL Editor and run:
-```sql
-CREATE INDEX rag_embedding_idx ON rag_documents
-USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
-```
-
-### 7. Run the app
-```bash
-streamlit run app.py
-```
+-   **Intelligent Soil Analysis:** Precise crop recommendations based on NPK, pH, and environmental data.
+-   **Farm Digital Twin:** Detailed history of soil health readings over time with trajectory analysis.
+-   **AI Chat Assistant:** Combined RAG (Research-Augmented Generation) and Text-to-SQL for querying agricultural guidelines and farm data.
+-   **Multi-Language UI:** Fully localized English and Tamil interface with instant switching.
+-   **Voice Advisory:** Tamil/English Speech-to-Text and Text-to-Speech integration.
+-   **Regional Benchmarking:** Compare your farm's health against Tamil Nadu district averages.
 
 ---
 
-## Project Structure
+## 🛠️ Tech Stack
+
+-   **Backend:** [FastAPI](https://fastapi.tiangolo.com/) (Python)
+-   **Frontend:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+-   **Styling:** Clean Vanilla CSS with Apple-inspired frosted glass effects.
+-   **Visualization:** [Recharts](https://recharts.org/) (Timeline charts & Radar confidence meters).
+-   **Database:** [Supabase](https://supabase.com/) (pgvector for RAG, PostgreSQL for farm records).
+-   **AI Models:** RandomForest (Crop/Fertilizer ML), OpenAI Whisper (STT), Google TTS, and Groq/OpenAI (LLM).
+
+---
+
+## 📦 Getting Started
+
+### 1. Configure Environment
+Create a `.env` file in the project root with the following:
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_service_role_key
+OPENAI_API_KEY=your_openai_api_key
+GROQ_API_KEY=your_groq_api_key
+```
+
+### 2. Manual Data Setup (One-time)
+1. Run `supabase_setup.sql` in your Supabase SQL Editor.
+2. Place crop datasets in `data/raw/`.
+3. Train ML models: `python models/train_crop_model.py`.
+4. Build RAG: `python rag/build_knowledge_base.py`.
+
+### 3. Run the Backend
+The backend serves the AI logic and also powers the auto-training lifecycle on startup.
+```bash
+# From project root
+uvicorn backend.main:app --reload --port 8000
+```
+
+### 4. Run the Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open `http://localhost:5173` in your browser.
+
+---
+
+## 📂 Project Structure
 
 ```
 kisaangpt/
-├── app.py                          Main Streamlit application
-├── requirements.txt
-├── supabase_setup.sql              One-time DB setup script
-├── .env.example
-│
-├── agents/
-│   ├── orchestrator.py             Master pipeline coordinator
-│   ├── soil_analyst_agent.py       Threshold-based soil health checker
-│   ├── crop_predictor_agent.py     ML inference (RandomForest)
-│   ├── rag_retriever_agent.py      Supabase pgvector retriever
-│   ├── weather_agent.py            OpenWeatherMap integration
-│   ├── fertilizer_agent.py         ICAR-calibrated dose calculator
-│   └── synthesis_agent.py          Claude LLM final advisory
-│
-├── rag/
-│   ├── supabase_client.py          Singleton Supabase client
-│   ├── build_knowledge_base.py     Chunk → embed → upload pipeline
-│   └── documents/                  ICAR & TNAU source documents
-│       ├── icar_soil_health_guidelines.txt
-│       ├── icar_fertilizer_recommendations.txt
-│       ├── tnau_crop_guide_kharif.txt
-│       ├── tnau_crop_guide_rabi.txt
-│       └── soil_health_thresholds.txt
-│
-├── models/
-│   ├── train_crop_model.py         Training + 5-model comparison script
-│   ├── crop_model.pkl              Saved RandomForest (after training)
-│   ├── fertilizer_model.pkl        Saved fertilizer classifier
-│   └── model_metadata.json         Thresholds, crop classes, accuracy
-│
-├── memory/
-│   └── farm_twin.py                Supabase CRUD for farm digital twin
-│
-├── voice/
-│   ├── transcriber.py              Whisper STT (Tamil/English)
-│   └── speaker.py                  gTTS TTS (Tamil/English)
-│
-└── data/
-    └── raw/                        Place downloaded CSVs here
+├── backend/            # FastAPI application (main.py, routers)
+├── frontend/           # React application (Vite structure)
+│   ├── src/            # App.jsx, i18n.js, css
+│   └── public/         # logo.png, assets
+├── agents/             # 6-agent modular pipeline
+├── models/             # ML training and model artifacts (.pkl)
+├── memory/             # Supabase data persistence (Digital Twin)
+├── rag/                # Vector search knowledge base
+├── voice/              # Audio transcription & speech synthesis
+└── data/               # Raw datasets for training
 ```
 
 ---
 
-## ML Models Used
+## 🚂 Deployment: Railway
 
-| Model | Purpose | Accuracy |
-|-------|---------|---------|
-| RandomForest (200 trees) | Crop prediction — primary | ~99.3% |
-| GradientBoosting | Compared, not deployed | ~98.5% |
-| SVM (RBF kernel) | Compared, not deployed | ~97.8% |
-| KNN (k=5) | Compared, not deployed | ~97.2% |
-| Naive Bayes | Compared, not deployed | ~90.4% |
-| RandomForest (100 trees) | Fertilizer prediction | ~96% |
-| SentenceTransformer (MiniLM-L6) | RAG embeddings (384-dim) | — |
+The project is pre-configured for **Railway** deployment.
+-   **Strategy:** Single-service deployment.
+-   **Process:** The FastAPI server build script automates the React build (`npm install && npm run build`) and serves the static files from `frontend/dist`.
+-   **Auto-training:** If ML model files are missing on the server, the FastAPI `lifespan` triggers training automatically on boot.
 
 ---
 
-## Mandatory Theme Coverage
+## 🎓 Academic / Theme Implementation
 
-| Theme | Implementation |
-|-------|---------------|
-| Prompt Engineering | `SynthesisAgent` — structured system prompt with anti-hallucination rules, citation requirements, language control, and response format constraints |
-| RAG | Supabase pgvector + `all-MiniLM-L6-v2` on 5 ICAR/TNAU documents. `match_documents` RPC with cosine similarity threshold. Retrieved chunks are injected into synthesis prompt. |
-| Voice AI | OpenAI Whisper STT (Tamil + English) + Google TTS. Full voice loop in Tab 3. |
-| AI Agents | 6-agent pipeline: Soil Analyst → Crop Predictor → RAG Retriever → Weather → Fertilizer → Synthesis, all coordinated by Orchestrator. |
+| Theme | Details |
+| :--- | :--- |
+| **Prompt Engineering** | SynthesisAgent with structural constraints, anti-hallucination, and regional context. |
+| **RAG** | ICAR/TNAU document vector searching via Supabase pgvector. |
+| **AI Agents** | Orchestrator-led flow: Soil Analyst → ML Predictor → RAG → Synthesis. |
+| **Voice AI** | Bilingual (Tamil/English) STT/TTS loop for accessibility. |
+| **Model Parity** | RandomForest ensemble achieving ≈99.3% accuracy for regional crop fitness. |
 
----
 "# Kisaan-GPT" 
-"# Kisaan-gpt" 
+"# Kisaan-gpt"
